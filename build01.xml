@@ -1,0 +1,45 @@
+<project name="GerenciaConfiguracao" default="main" basedir=".">
+	<description>
+		PROJETO PARA A DISCIPLINA DE GERENCIA DE CONFIGURACAO DA POS DE ENGENHARIA E QUALIDADE DE SOFTWARE
+	</description>
+	<!-- global properties -->
+	<property name="source.dir" location="src" />
+	<property name="build.dir" location="bin" />
+	<property name="doc.dir" location="doc" />
+	<property name="jars.dir" location="jars" />
+	
+	<!--  -->
+	<path id="junit.class.path">
+		<pathelement location="${jars.dir}/junit-4.12.jar" />
+	</path>
+	
+	<target name="clean" description="limpar pastas do projeto">
+		<delete dir="${build.dir}" />
+		<delete dir="${doc.dir}" />
+		<delete>
+			<fileset defaultexcludes="no" dir="${source.dir}" includes="**/*~"/>
+		</delete>
+	</target>
+	
+	<target name="init" description="criar as pastas do projeto">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${doc.dir}" />
+	</target>
+	
+	<target name="compile" description="compilar os recursos java">
+		<javac srcdir="${source.dir}" destdir="${build.dir}">
+			<classpath refid="junit.class.path" />
+		</javac>		
+	</target>
+	
+	<target name="doc" description="gerar a documentacao java">
+		<javadoc sourcepath="${source.dir}" destdir="${doc.dir}">
+			<classpath refid="junit.class.path" />
+		</javadoc>
+	</target>
+	
+	<target name="main" depends="clean, init, compile, doc">
+		<description>Main Target</description>
+	</target>
+
+</project>
